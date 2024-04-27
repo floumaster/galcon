@@ -13,6 +13,9 @@
       ],
       "game/*": [
         "./game/*"
+      ],
+      "lobby/*": [
+        "./lobby/*"
       ]
     },
     "useDefineForClassFields": true,

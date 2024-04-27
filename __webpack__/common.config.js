@@ -121,6 +121,7 @@ module.exports = {
       game: path.resolve(__dirname, '../src/game/'),
       const: path.resolve(__dirname, '../src/const/'),
       utils: path.resolve(__dirname, '../src/utils/'),
+      lobby: path.resolve(__dirname, '../src/lobby/'),
     },
   },
   module: {

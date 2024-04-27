@@ -1,0 +1,1 @@
+export type SpaceEntityType = 'Planet' | 'SpaceBrigade'
