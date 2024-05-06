@@ -15,7 +15,7 @@ export const GamePage = observer(() => {
             <States.InitialModal/>
           ),
           lobbyList: (
-            <></>
+            <States.LobbyList/>
           ),
           pending: (
             <></>

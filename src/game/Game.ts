@@ -1,15 +1,20 @@
 import { makeAutoObservable } from "mobx";
 import { GameState } from "./GameState";
-import { SpaceEntity } from "./SpaceEntity";
 import { SpaceEntityFactory } from "./SpaceEntityFactory";
 import { Planet, PlanetProps } from "./Planet";
 import { SpaceBrigade, SpaceBrigadeProps } from "./SpaceBrigade";
 import { Player } from "./Player";
 import { PlayerFactory } from "./PlayerFactory";
+import { GameApi } from "./api/GameApi";
+import { LobbyFactory, LobbyApi, Lobby } from "lobby";
 
 class Game {
-  private _state: GameState = 'inProgress'
+  private _state: GameState = 'initial'
   private _userId: string | null = null
+  private _userJWT: string | null = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEzLCJ1c2VybmFtZSI6ImRmZ2RmZyIsImlhdCI6MTcxNDk4MTgzNn0.3E4j0P0qGrtpOb2geJj3WRWKl-CP6Jbd3cl15KWAPRM'
+  private _gameApi: GameApi
+  private _lobbies: Lobby[] = []
+  private _lobbyApi: LobbyApi | null = null
   public planets: Planet[] = []
   public spaceBrigades: SpaceBrigade[] = []
   public players: Player[] = []
@@ -23,6 +28,29 @@ class Game {
     return this._userId
   }
 
+  public async authorize(username: string) {
+    // if (!this._userJWT) {
+    //   this._userJWT = await this._gameApi.authorize({
+    //     username,
+    //   });
+    // }
+    if (this._userJWT) {
+      this._lobbyApi = new LobbyApi(this._userJWT)
+      await this.fetchLobbies()
+      this._state = 'lobbyList'
+    }
+  }
+
+  public async fetchLobbies() {
+    if (this._lobbyApi) {
+      const lobbyFactory = new LobbyFactory()
+      this._lobbies = (await this._lobbyApi.getLobbies()).map(lobbyFetched => lobbyFactory.createLobby(lobbyFetched))
+    }
+  }
+
+  public get lobbies() {
+    return this._lobbies
+  }
 
 
   public constructor() {
@@ -107,6 +135,8 @@ class Game {
     ]
     this.players = plyersMockData.map(playerMockData => playerFactory.createPlayer(playerMockData))
     this.planets.push(...planetsMockData.map(planetMockData => spaceEntityFactory.createPlanet(planetMockData)))
+    this._gameApi = new GameApi()
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 

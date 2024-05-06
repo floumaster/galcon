@@ -13,8 +13,8 @@ export const InitialModal = observer(() => {
     viewModel.setName(e.target.value)
   }
 
-  const onPlayButtonClick = () => {
-    game.setState('lobbyList')
+  const onPlayButtonClick = async () => {
+    await game.authorize(viewModel.name)
   }
 
   return (

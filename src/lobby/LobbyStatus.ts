@@ -1,1 +1,0 @@
-export type LobbyStatus = 'open' | 'pending' | 'inProgress'
