@@ -9,7 +9,7 @@ import { GameApi } from "./api/GameApi";
 import { LobbyFactory, LobbyApi, Lobby } from "lobby";
 
 class Game {
-  private _state: GameState = 'initial'
+  private _state: GameState = 'inProgress'
   private _userId: string | null = null
   private _userJWT: string | null = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEzLCJ1c2VybmFtZSI6ImRmZ2RmZyIsImlhdCI6MTcxNDk4MTgzNn0.3E4j0P0qGrtpOb2geJj3WRWKl-CP6Jbd3cl15KWAPRM'
   private _gameApi: GameApi
