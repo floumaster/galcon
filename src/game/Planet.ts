@@ -3,6 +3,7 @@ import { SpaceEntity } from "./SpaceEntity";
 
 export interface PlanetProps extends SpaceEntity {
   radius: number
+  production: number
 }
 
 export interface Planet extends PlanetProps { }

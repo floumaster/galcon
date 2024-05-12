@@ -1,7 +1,7 @@
 export type GetLobbyResponse = {
-  id: number
+  id: string
   owner: {
-    id: number
+    id: string
     username: string
   }
   name: string
@@ -9,7 +9,7 @@ export type GetLobbyResponse = {
   users: any[]
   map: {
     planets: {
-      id: number
+      id: string
       owner: string | null
       production: number
       units: number

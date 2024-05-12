@@ -6,9 +6,6 @@ import useWindowDimensions from "presentation/utils/useWindowDimensions";
 import { Planet, SpaceBrigade } from "presentation/components";
 import { InProgressViewModel } from "./InProgressViewModel";
 
-const gameFieldWidth = 100
-const gameFiledHeight = 74
-
 export const InProgress = observer(() => {
 
   const { height, width } = useWindowDimensions();
@@ -19,8 +16,8 @@ export const InProgress = observer(() => {
   const players = game.players
 
   const normalizeCooradinate = (coordinate: Coordinate) => ({
-    x: coordinate.x * width / gameFieldWidth,
-    y: coordinate.y * height / gameFiledHeight,
+    x: coordinate.x * width / game.settings.width,
+    y: coordinate.y * height / game.settings.height,
   })
 
   return (
@@ -29,10 +26,10 @@ export const InProgress = observer(() => {
         planets.map(planet => {
           return (
             <Planet
-              radius={planet.radius}
-              spaceShipsAmount={planet.spaceShipsAmount}
+              radius={planet.radius * width / game.settings.width}
+              spaceShipsAmount={planet.units}
               coordinate={normalizeCooradinate(planet.coordinate)}
-              color={players.find(player => player.id === planet.ownerId)?.color}
+              color={players.find(player => player.id === planet.owner)?.color}
               key={planet.id}
               isSelected={viewModel.selectedFromPlanet?.id === planet.id}
               onClick={() => viewModel.onPlanetSelect(planet)}
@@ -40,7 +37,7 @@ export const InProgress = observer(() => {
           )
         })
       }
-      {
+      {/* {
         spaceBrigades.map(spaceBrigade => {
           return (
             <SpaceBrigade
@@ -51,7 +48,7 @@ export const InProgress = observer(() => {
             />
           )
         })
-      }
+      } */}
     </GameField>
   )
 })
