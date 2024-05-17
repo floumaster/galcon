@@ -7,7 +7,7 @@ export const ImageMask = styled.div<{ $radius: number; $color?: string }>`
   height: ${props => props.$radius}px;
   background-color: ${props => props.$color || "none"};
   border-radius: 50%;
-  opacity: 0.3;
+  opacity: 0.5;
 `
 
 export const Image = styled.img<{ $radius: number; $isSelected?: boolean }>`
@@ -25,7 +25,7 @@ export const SpaceShipsNumber = styled.div`
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 20px;
 `
 
 export const Wrapper = styled.div<{ $coordinate: Coordinate; }>`

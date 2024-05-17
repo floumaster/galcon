@@ -2,9 +2,9 @@ import { Coordinate } from "./Coordinate"
 import { SpaceEntityType } from "./SpaceEntityType"
 
 export interface SpaceEntity {
-  id: string
+  id: number
   type: SpaceEntityType
-  ownerId?: string
+  owner: number | null
   coordinate: Coordinate
-  spaceShipsAmount: number
+  units: number
 }

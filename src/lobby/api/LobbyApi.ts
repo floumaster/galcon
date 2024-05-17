@@ -12,7 +12,6 @@ export class LobbyApi {
   }
 
   public async getLobbies() {
-    console.log(this.jwtToken)
     const response = await fetch(`${API_ROOT}/rooms`, {
       headers: {
         "Authorization": `Bearer ${this.jwtToken}`,

@@ -10,7 +10,7 @@ export type GetLobbyResponse = {
   map: {
     planets: {
       id: number
-      owner: string | null
+      owner: number | null
       production: number
       units: number
       x: number
