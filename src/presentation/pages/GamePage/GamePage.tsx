@@ -18,7 +18,7 @@ export const GamePage = observer(() => {
             <States.LobbyList/>
           ),
           pending: (
-            <></>
+            <States.InProgress/>
           ),
           inProgress: (
             <States.InProgress/>

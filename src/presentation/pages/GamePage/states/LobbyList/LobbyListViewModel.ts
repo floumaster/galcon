@@ -3,13 +3,13 @@ import { game } from "game";
 
 export class LobbyListViewModel {
 
-  private _selectedLobbyId = ''
+  private _selectedLobbyId = -1
 
   public get selectedLobbyId() {
     return this._selectedLobbyId
   }
 
-  public selectLobbyId(lobyyId: string) {
+  public selectLobbyId(lobyyId: number) {
     this._selectedLobbyId = lobyyId
   }
 

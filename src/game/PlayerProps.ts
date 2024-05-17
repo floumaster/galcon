@@ -1,5 +1,6 @@
 export interface PlayerProps {
-  id: string
+  id: number
   color: string
   name: string
+  isReady: boolean
 }

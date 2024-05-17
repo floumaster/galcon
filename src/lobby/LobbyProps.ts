@@ -1,21 +1,22 @@
 import { Coordinate } from "game/Coordinate"
+import { PlayerProps } from "game/PlayerProps"
 import { SpaceEntityType } from "game/SpaceEntityType"
 
 export interface LobbyProps {
-  id: string
+  id: number
   owner: {
-    id: string
+    id: number
     username: string
   }
   name: string
   state: string
-  users: any[]
+  users: PlayerProps[]
   map: {
     planets: {
-      id: string
+      id: number
       type: SpaceEntityType
       coordinate: Coordinate
-      owner: string | null
+      owner: number | null
       production: number
       units: number
       radius: number

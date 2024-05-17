@@ -9,7 +9,7 @@ export const LobbyList = observer(() => {
 
   return (
     <Modal width={900}>
-      <div style={{color: '#fff', height: 20}}  onClick={viewModel.createLobby}>klek</div>
+      <div style={{color: '#fff', height: 20}}  onClick={viewModel.createLobby}>Create room</div>
       {
         viewModel.lobbies.map(lobby => (
           <div style={{color: '#fff', height: 20}} onClick={() => viewModel.selectLobbyId(lobby.id)}>{lobby.owner.username}</div>

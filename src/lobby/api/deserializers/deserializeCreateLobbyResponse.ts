@@ -1,5 +1,6 @@
 import { SpaceEntityType } from "game/SpaceEntityType";
 import { GetLobbyResponse } from "../responses";
+import { PLAYER_COLOR_PRIORITY } from "game/PlayerColorPriority";
 
 export const deserializeCreateLobbyResponse = (lobbyResponse: GetLobbyResponse) => ({
   ...lobbyResponse,
@@ -21,5 +22,11 @@ export const deserializeCreateLobbyResponse = (lobbyResponse: GetLobbyResponse) 
       units: planet.units,
       radius: planet.radius
     }))
-  }
+  },
+  users: lobbyResponse.users.map((user, id) => ({
+    id: user.id,
+    name: user.username,
+    color: PLAYER_COLOR_PRIORITY[id],
+    isReady: false,
+  }))
 })
