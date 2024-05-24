@@ -18,7 +18,7 @@ const LS_JWT_KEY = 'userJWT'
 const LS_NAME_KEY = 'userName'
 
 class Game {
-  private _state: GameState = 'initial'
+  private _state: GameState = 'inProgress'
   private _userId: string | null = null
   private _userJWT: string | null = null
   private _gameApi: GameApi
