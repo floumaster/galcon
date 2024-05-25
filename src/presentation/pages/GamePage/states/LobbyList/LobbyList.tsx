@@ -12,34 +12,36 @@ export const LobbyList = observer(() => {
   const currentLobby = viewModel.lobbies.find(lobby => lobby.id === viewModel.selectedLobbyId);
 
   const inlineButtonClass = {width: '50%', alignSelf: 'center'};
+  const inlineHeightAuto = {height: 'auto'};
 
   return (
     <LobbyLayout>
       <List>
         <BoxContent>
-          <ScrollContainer>
-            {
-              viewModel.lobbies.map(lobby => (
-                <ListItem key={lobby.id} lobby={lobby} clickHandler={() => viewModel.selectLobbyId(lobby.id)}></ListItem>
-              ))
-            }
+            <h1 style={inlineHeightAuto}>Existing rooms:</h1>
+            <ScrollContainer>
+              {
+                viewModel.lobbies.map(lobby => (
+                  <ListItem key={lobby.id} lobby={lobby} clickHandler={() => viewModel.selectLobbyId(lobby.id)}></ListItem>
+                ))
+              }
             </ScrollContainer>
+          
             <PrimaryButton style={inlineButtonClass} onClick={viewModel.createLobby}>Create room</PrimaryButton>
         </BoxContent>
       </List>
-      {
-      viewModel.selectedLobbyId !== -1 && 
       <Preview >
-        <BoxContent>
-          <PreviewItem lobby={currentLobby}></PreviewItem>
-          <PrimaryButton style={inlineButtonClass} onClick={viewModel.joinLobby}>Join</PrimaryButton>
-        </BoxContent>
+        { 
+          viewModel.selectedLobbyId !== -1 && 
+          <BoxContent>
+            <div>
+              <h1 style={{height: '80px'}}>Room details:</h1>
+              <PreviewItem lobby={currentLobby}></PreviewItem>
+            </div>
+            <PrimaryButton style={inlineButtonClass} onClick={viewModel.joinLobby}>Join</PrimaryButton>
+          </BoxContent>
+        }
       </Preview>
-    }
-    { // empty section
-      viewModel.selectedLobbyId === -1 && 
-      <Preview></Preview>
-    }
     </LobbyLayout>
   );
 });

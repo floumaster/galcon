@@ -6,6 +6,7 @@ export const LobbyLayout = styled.div`
   height: 100%;
   width: 100%;
   padding: 20px;
+  color: white;
 `;
 
 export const List = styled.div`
