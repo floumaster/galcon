@@ -7,7 +7,7 @@ export const ImageMask = styled.div<{ $radius: number; $color?: string }>`
   height: ${props => props.$radius}px;
   background-color: ${props => props.$color || "none"};
   border-radius: 50%;
-  opacity: 0.5;
+  opacity: 0.8;
 `
 
 export const Image = styled.img<{ $radius: number; $isSelected?: boolean }>`
@@ -33,8 +33,8 @@ export const Wrapper = styled.div<{ $radius: number; $coordinate: Coordinate; }>
   justify-content: center;
   align-items: center;
   position: absolute;
-  width: ${props => props.$radius}px;
-  height: ${props => props.$radius}px;
+  width: 0;
+  height: 0;
   top: ${props => props.$coordinate.y}px;
   left: ${props => props.$coordinate.x}px;
   cursor: pointer;

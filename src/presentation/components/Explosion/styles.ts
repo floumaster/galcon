@@ -14,8 +14,8 @@ export const Wrapper = styled.div<{ $coordinate: Coordinate; }>`
   justify-content: center;
   align-items: center;
   position: absolute;
-  width: 50px;
-  height: 50px;
+  width: 0;
+  height: 0;
   top: ${props => props.$coordinate.y}px;
   left: ${props => props.$coordinate.x}px;
   cursor: pointer;

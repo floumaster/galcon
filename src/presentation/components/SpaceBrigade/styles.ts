@@ -13,6 +13,8 @@ export const Background = styled.div<{ $color?: string }>`
   background-color: ${props => props.$color};
   opacity: 0.5;
   border-radius: 50%;
+  width: 50px;
+  height: 50px;
   z-index: 0;
 `
 
@@ -35,8 +37,8 @@ export const Wrapper = styled.div<{ $coordinate: Coordinate; }>`
   justify-content: center;
   align-items: center;
   position: absolute;
-  width: 50px;
-  height: 50px;
+  width: 0;
+  height: 0;
   border-radius: 50%;
   top: ${props => props.$coordinate.y}px;
   left: ${props => props.$coordinate.x}px;

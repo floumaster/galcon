@@ -22,8 +22,8 @@ export class InProgressViewModel {
   }) {
     if (this.selectedFromPlanet?.coordinate && this.selectedFromPlanet?.radius)
       return normalizer({
-        x: this.selectedFromPlanet?.coordinate.x + this.selectedFromPlanet?.radius / 2,
-        y: this.selectedFromPlanet?.coordinate.y + this.selectedFromPlanet?.radius,
+        x: this.selectedFromPlanet?.coordinate.x,
+        y: this.selectedFromPlanet?.coordinate.y,
       })
   }
 
