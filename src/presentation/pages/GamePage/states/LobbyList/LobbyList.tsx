@@ -1,21 +1,45 @@
-import React, { useState } from "react";
-import { observer } from "mobx-react";
-import { Modal, PrimaryButton } from "presentation/components";
-import { LobbyListViewModel } from "./LobbyListViewModel";
+import React, { useState } from 'react';
+import { observer } from 'mobx-react';
+import { PrimaryButton } from 'presentation/components';
+import { LobbyListViewModel } from './LobbyListViewModel';
+import { List, LobbyLayout, Preview, BoxContent, ScrollContainer } from './styles';
+import { ListItem, PreviewItem } from './components';
 
 export const LobbyList = observer(() => {
 
-  const [viewModel] = useState(() => new LobbyListViewModel())
+  const [viewModel] = useState(() => new LobbyListViewModel());
+
+  const currentLobby = viewModel.lobbies.find(lobby => lobby.id === viewModel.selectedLobbyId);
+
+  const inlineButtonClass = {width: '50%', alignSelf: 'center'};
 
   return (
-    <Modal width={900}>
-      <div style={{color: '#fff', height: 20}}  onClick={viewModel.createLobby}>Create room</div>
+    <LobbyLayout>
+      <List>
+        <BoxContent>
+          <ScrollContainer>
+            {
+              viewModel.lobbies.map(lobby => (
+                <ListItem key={lobby.id} lobby={lobby} clickHandler={() => viewModel.selectLobbyId(lobby.id)}></ListItem>
+              ))
+            }
+            </ScrollContainer>
+            <PrimaryButton style={inlineButtonClass} onClick={viewModel.createLobby}>Create room</PrimaryButton>
+        </BoxContent>
+      </List>
       {
-        viewModel.lobbies.map(lobby => (
-          <div style={{color: '#fff', height: 20}} onClick={() => viewModel.selectLobbyId(lobby.id)}>{lobby.owner.username}</div>
-        ))
-      }
-      <PrimaryButton onClick={viewModel.joinLobby}>Join</PrimaryButton>
-    </Modal>
-  )
-})
+      viewModel.selectedLobbyId !== -1 && 
+      <Preview >
+        <BoxContent>
+          <PreviewItem lobby={currentLobby}></PreviewItem>
+          <PrimaryButton style={inlineButtonClass} onClick={viewModel.joinLobby}>Join</PrimaryButton>
+        </BoxContent>
+      </Preview>
+    }
+    { // empty section
+      viewModel.selectedLobbyId === -1 && 
+      <Preview></Preview>
+    }
+    </LobbyLayout>
+  );
+});
