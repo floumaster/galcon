@@ -10,10 +10,8 @@ export interface SpaceBrigadeProps extends SpaceEntity {
 export interface SpaceBrigade extends SpaceBrigadeProps { }
 
 export class SpaceBrigade {
-  private fromCoordinate: Coordinate;
-  private toCoordinate: Coordinate;
   private startTime: number;
-  private speed: number = 3;
+  private speed: number = 0.63;
   private animationFrameId: number | null = null;
 
   public constructor(props: SpaceBrigadeProps) {

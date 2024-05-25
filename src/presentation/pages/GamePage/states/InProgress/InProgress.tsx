@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import { GameField, ControlPanel } from "./styles";
 import { Coordinate, game } from "game";
 import useWindowDimensions from "presentation/utils/useWindowDimensions";
-import { Modal, Planet, PrimaryButton, SpaceBrigade } from "presentation/components";
+import { Explosion, Modal, Planet, PrimaryButton, SpaceBrigade } from "presentation/components";
 import { InProgressViewModel } from "./InProgressViewModel";
 import { PlayerInfo, Counter } from "./components";
 import useMousePosition from "presentation/utils/useMousePosition";
@@ -17,6 +17,7 @@ export const InProgress = observer(() => {
 
   const planets = game.planets
   const spaceBrigades = game.spaceBrigades
+  const explosions = game.explosions
   const players = game.players
 
   const normalizeCoordinate = (coordinate: Coordinate) => ({
@@ -86,6 +87,16 @@ export const InProgress = observer(() => {
                 viewModel.onPlanetSelect(planet)
               }}
               
+            />
+          )
+        })
+      }
+      {
+        explosions.map(explosion => {
+          return (
+            <Explosion
+              radius={explosion.radius * width / game.settings.width}
+              coordinate={normalizeCoordinate(explosion.coordinate)}
             />
           )
         })
