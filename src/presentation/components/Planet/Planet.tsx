@@ -6,7 +6,7 @@ import { PlanetProps } from "./PlanetProps";
 
 export const Planet = observer((props: PlanetProps) => {
   return (
-    <Wrapper onClick={props.onClick} $coordinate={props.coordinate}>
+    <Wrapper $radius={props.radius} onClick={props.onClick} $coordinate={props.coordinate}>
       <Image src={Moon} $radius={props.radius} $isSelected={props.isSelected}/>
       <ImageMask $radius={props.radius} $color={props.color}/>
       <SpaceShipsNumber>{props.spaceShipsAmount}</SpaceShipsNumber>
