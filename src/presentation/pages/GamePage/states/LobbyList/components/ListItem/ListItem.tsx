@@ -6,7 +6,7 @@ import React from 'react';
 export const ListItem = observer((props: ListItemProps) => {
     return (
         <ItemBox onClick={props.clickHandler}>
-            <div>{props.lobby?.name}</div>
+            <div>{props.lobby?.owner.username}</div>
             {props.lobby?.users.length}/4
         </ItemBox>
     );

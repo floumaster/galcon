@@ -30,4 +30,9 @@ export const BoxContent = styled.div`
 
 export const ScrollContainer = styled.div`
   overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none; 
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
