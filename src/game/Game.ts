@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { GameState } from "./GameState";
 import { SpaceEntityFactory } from "./SpaceEntityFactory";
 import { Planet } from "./Planet";
@@ -13,6 +13,8 @@ import { PLAYER_COLOR_PRIORITY } from "./PlayerColorPriority";
 import { SpaceBrigadeSendEventResponse } from "./SpaceBrigadeSendEventResponse";
 import { SpaceBrigadeCollisionEventResponse } from "./SpaceBrigadeCollisionEventResponse";
 import { Coordinate } from "./Coordinate";
+import { Explosion } from "./Explosion";
+import { ExplosionFactory } from "./ExplosionFactory";
 
 const LS_JWT_KEY = 'userJWT'
 const LS_NAME_KEY = 'userName'
@@ -27,10 +29,12 @@ class Game {
   public lobbyOwner: string = ''
   public settings: GameSettings | any
   public planets: Planet[] = []
+  public explosions: Explosion[] = []
   public spaceBrigades: SpaceBrigade[] = []
   public players: Player[] = []
   public currentPlayerName = ''
   public gameEventDistribution: GameEventDistribution | null = null
+  public planetOccupationCounter = 0
 
   public get state() {
     return this._state
@@ -135,8 +139,21 @@ class Game {
       });
 
       this.gameEventDistribution.socket.on('PlanetOccupiedEvent', (event) => {
+        console.log(event, 'PlanetOccupiedEvent')
+        const explosionFactory = new ExplosionFactory()
         const targetPlanet = this.planets.find(planet => planet.id === event.planetId)
         if (targetPlanet) {
+          if (this.planetOccupationCounter >= 2) {
+            this.explosions.push(explosionFactory.createExplosion({
+              id: targetPlanet.id,
+              coordinate: targetPlanet.coordinate,
+              radius: targetPlanet.radius * 1.5
+            }))
+            setTimeout(() => {
+              this.explosions = this.explosions.filter(explosion => explosion.id !== targetPlanet.id)
+            }, 2000)
+          }
+          this.planetOccupationCounter++
           targetPlanet.owner = event.newOwnerId
         }
       });
