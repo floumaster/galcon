@@ -12,8 +12,8 @@ import useMousePosition from "presentation/utils/useMousePosition";
 export const InProgress = observer(() => {
 
   const { height, width } = useWindowDimensions();
-  const { x, y } = useMousePosition();
   const [viewModel] = useState(() => new InProgressViewModel())
+  const { x, y } = useMousePosition()
 
   const planets = game.planets
   const spaceBrigades = game.spaceBrigades
@@ -25,11 +25,6 @@ export const InProgress = observer(() => {
     y: coordinate.y * height / game.settings.height,
   })
 
-  // viewModel.getLineAttributes({
-  //   x,
-  //   y,
-  // }, normalizeCoordinate)
-
   const currentPlayer = game.players.find(player => player.name === game.currentPlayerName)
 
   const readyButtonText = currentPlayer?.isReady ? 'Not ready' : 'Ready'
@@ -40,9 +35,35 @@ export const InProgress = observer(() => {
       return false;
   }
 
+  let x1 = null
+  let y1 = null
+  const x2 = x
+  const y2 = y
+
+  const normalizedLineFromCoordinate = viewModel.getNormalizedLineFromCoordinate(normalizeCoordinate)
+  if(normalizedLineFromCoordinate) {
+    x1 = normalizedLineFromCoordinate.x
+    y1 = normalizedLineFromCoordinate.y
+  }
+
+
+  const length = x1 && y1 && x2 && y2 ? Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2) : 0;
+  const angle =  x1 && y1 && x2 && y2 ? Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI : 0;
+
   return (
     <GameField>
       <Counter />
+      {!!(length && angle && y1 && x1) &&(<div style={{
+        width: length,
+        height: 2,
+        position: 'absolute',
+        top: y1,
+        left: x1,
+        transformOrigin: '0 0',
+        transform: 'rotate(' + angle + 'deg)', 
+        backgroundColor: '#fff',
+        }}
+      />)}
       <ControlPanel>
         <Modal width={250}>
           <>

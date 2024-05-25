@@ -28,13 +28,13 @@ export const SpaceShipsNumber = styled.div`
   font-size: 20px;
 `
 
-export const Wrapper = styled.div<{ $coordinate: Coordinate; }>`
+export const Wrapper = styled.div<{ $radius: number; $coordinate: Coordinate; }>`
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  width: 50px;
-  height: 50px;
+  width: ${props => props.$radius}px;
+  height: ${props => props.$radius}px;
   top: ${props => props.$coordinate.y}px;
   left: ${props => props.$coordinate.x}px;
   cursor: pointer;

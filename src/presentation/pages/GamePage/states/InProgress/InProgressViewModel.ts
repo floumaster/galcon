@@ -11,47 +11,20 @@ export class InProgressViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  public getLineAttributes(mouseCoordinate: Coordinate, normalizeCoordinate: (coordinate: Coordinate) => Coordinate) {
-    //if (!this.selectedFromPlanet) return {}
-    console.log(mouseCoordinate)
-    //const fromCoordinate = normalizeCoordinate(this.selectedFromPlanet.coordinate)
-    const fromCoordinate = {
-      x: 1,
-      y: 1,
-    }
-    const lineLength = this.getLineLength(fromCoordinate, mouseCoordinate)
-    const linePosition = this.getLinePosition(fromCoordinate, mouseCoordinate, lineLength)
-    const rotationAngle = this.getRotationAngle(fromCoordinate, mouseCoordinate)
-    console.log(lineLength, linePosition, rotationAngle)
-  }
-
-  private getLineLength(fromCoordinate: Coordinate, toCoordinate: Coordinate) {
-    const { x, y } = fromCoordinate
-    const x2 = toCoordinate.x
-    const y2 = toCoordinate.y
-    return Math.sqrt(Math.pow((x - x2), 2) + Math.pow((y - y2), 2))
-  }
-
-  private getLinePosition(fromCoordinate: Coordinate, toCoordinate: Coordinate, length: number) {
-    const { x, y } = fromCoordinate
-    const x2 = toCoordinate.x
-    const y2 = toCoordinate.y
-    return {
-      x: (x + x2) / 2 - length,
-      y: (y + y2) / 2
-    }
-  }
-
-  private getRotationAngle(fromCoordinate: Coordinate, toCoordinate: Coordinate) {
-    const { x, y } = fromCoordinate
-    const x2 = toCoordinate.x
-    const y2 = toCoordinate.y
-    return Math.atan2(y - y2, x - x2) * 180 / Math.PI
-  }
-
   public onClearSelection() {
     this.selectedFromPlanet = null
     this.selectedToPlanet = null
+  }
+
+  public getNormalizedLineFromCoordinate(normalizer: (coordinate: Coordinate) => {
+    x: number
+    y: number
+  }) {
+    if (this.selectedFromPlanet?.coordinate && this.selectedFromPlanet?.radius)
+      return normalizer({
+        x: this.selectedFromPlanet?.coordinate.x + this.selectedFromPlanet?.radius / 2,
+        y: this.selectedFromPlanet?.coordinate.y + this.selectedFromPlanet?.radius,
+      })
   }
 
   public onPlanetSelect(planet: Planet) {
