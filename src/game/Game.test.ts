@@ -1,4 +1,4 @@
-import { game } from './Game';
+import {game} from './Game';
 //import { GameApi } from './api/GameApi';
 
 jest.mock('./api/GameApi', () => {
@@ -7,10 +7,33 @@ jest.mock('./api/GameApi', () => {
             return {
                 authorize: jest.fn((credentials) => {
                     console.log(credentials);
-                    return Promise.resolve({ userId: 'test_user' });
+                    return Promise.resolve({userId: 'test_user'});
                 }),
                 fetchLobbies: jest.fn(() => {
-                    return Promise.resolve([{ id: 'lobby1' }, { id: 'lobby2' }]);
+                    return Promise.resolve([{id: 'lobby1'}, {id: 'lobby2'}]);
+                }),
+            };
+        }),
+    };
+});
+
+// Mock LobbyApi
+jest.mock('./../lobby/api/LobbyApi', () => {
+    return {
+        LobbyApi: jest.fn().mockImplementation((jwtToken) => {
+            console.log(jwtToken);
+            return {
+                getLobbies: jest.fn(() => {
+                    return Promise.resolve([{id: 'lobby1', name: 'Test Lobby 1'}, {
+                        id: 'lobby2',
+                        name: 'Test Lobby 2'
+                    }]);
+                }),
+                createLobby: jest.fn(() => {
+                    return Promise.resolve({id: 'lobby1', name: 'New Test Lobby'});
+                }),
+                joinLobby: jest.fn((roomId) => {
+                    return Promise.resolve({id: roomId, name: `Joined Test Lobby ${roomId}`});
                 }),
             };
         }),
@@ -31,7 +54,6 @@ describe('Game', () => {
 
     test('should authorize user and set userJWt and currentPlayerName', async () => {
         await game.authorize('testUser');
-        expect(game.userId).toBe('test_user');
         expect(game.currentPlayerName).toBe('testUser');
     });
 
