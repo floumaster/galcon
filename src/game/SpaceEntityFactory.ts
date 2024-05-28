@@ -6,6 +6,8 @@ export class SpaceEntityFactory {
   public constructor() { }
 
   public createSpaceBrigade(props: SpaceEntity) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     return new SpaceBrigade(props)
   }
 

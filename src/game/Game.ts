@@ -6,7 +6,7 @@ import { SpaceBrigade, SpaceBrigadeProps } from "./SpaceBrigade";
 import { Player } from "./Player";
 import { PlayerFactory } from "./PlayerFactory";
 import { GameApi } from "./api/GameApi";
-import { LobbyFactory, LobbyApi, Lobby } from "lobby";
+import { LobbyFactory, LobbyApi, Lobby } from "./../lobby";
 import { GameEventDistribution } from "./api/GameEventDistribution";
 import { GameSettings } from "./GameSettings";
 import { PLAYER_COLOR_PRIORITY } from "./PlayerColorPriority";
