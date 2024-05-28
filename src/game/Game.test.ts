@@ -74,5 +74,11 @@ describe('Game', () => {
         game.onUserChangeReadinessState(userId, true);
     });
 
+    test('should authorize, fetch lobbies and update state', async () => {
+        await game.authorize('testUser');
+        await game.authorize('testUser');
+        expect(game.state).toBe('lobbyList');
+        expect(game.lobbies.length).toBeGreaterThan(0);
+    });
     // More tests here
 });
