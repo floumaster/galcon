@@ -38,7 +38,11 @@ export const LobbyList = observer(() => {
               <h1 style={{height: '80px'}}>Room details:</h1>
               <PreviewItem lobby={currentLobby}></PreviewItem>
             </div>
-            <PrimaryButton style={inlineButtonClass} onClick={viewModel.joinLobby}>Join</PrimaryButton>
+            {
+            currentLobby?.users
+            && currentLobby?.users.length >= 0
+            && <PrimaryButton style={inlineButtonClass} onClick={viewModel.joinLobby} $isDisabled={currentLobby?.users.length > 3}>Join</PrimaryButton>
+            }
           </BoxContent>
         }
       </Preview>

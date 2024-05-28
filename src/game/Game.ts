@@ -48,6 +48,9 @@ class Game {
     this._userJWT = await this._gameApi.authorize({
       username,
     });
+    if (!this._userJWT) {
+      throw new Error('User already exists')
+    }
     this.currentPlayerName = username
     localStorage.setItem(LS_JWT_KEY, this._userJWT);
     localStorage.setItem(LS_NAME_KEY, this.currentPlayerName);
@@ -55,10 +58,15 @@ class Game {
   }
 
   public async onAuthorized() {
-    if (this._userJWT)
+    if (this._userJWT) {
       this._lobbyApi = new LobbyApi(this._userJWT)
-    await this.fetchLobbies()
-    this._state = 'lobbyList'
+      try {
+        await this.fetchLobbies()
+        this._state = 'lobbyList'
+      } catch (err) {
+        console.log(err)
+      }
+    }
   }
 
   public async createLobby() {
@@ -70,8 +78,8 @@ class Game {
 
   public onGameStart() {
     this._state = 'inProgress'
-    localStorage.removeItem(LS_JWT_KEY);
-    localStorage.removeItem(LS_NAME_KEY);
+    // localStorage.removeItem(LS_JWT_KEY);
+    // localStorage.removeItem(LS_NAME_KEY);
     if (this.gameEventDistribution && this.currentPlayerName === this.players[0].name) {
       this.gameEventDistribution.socket.emit('RoomStateChangeEvent', { state: 'start' });
     }
