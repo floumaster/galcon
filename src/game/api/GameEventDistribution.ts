@@ -1,4 +1,4 @@
-import { API_ROOT } from "const"
+import { API_ROOT } from "../../const"
 import { makeAutoObservable } from "mobx"
 import { io } from "socket.io-client"
 

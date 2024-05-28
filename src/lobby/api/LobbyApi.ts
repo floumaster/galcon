@@ -1,5 +1,7 @@
 import { API_ROOT } from 'const/apiRoot'
+import fetch from 'node-fetch'
 import * as Deserializers from './deserializers'
+import { GetLobbyResponse } from './responses';
 
 export class LobbyApi {
 
@@ -17,7 +19,7 @@ export class LobbyApi {
         "Authorization": `Bearer ${this.jwtToken}`,
       },
     })
-    const responseBody = await response.json()
+    const responseBody = await response.json() as GetLobbyResponse[]
     return Deserializers.deserializeGetLobbiesResponse(responseBody)
   }
 
@@ -28,7 +30,7 @@ export class LobbyApi {
         "Authorization": `Bearer ${this.jwtToken}`,
       },
     })
-    const responseBody = await response.json()
+    const responseBody = await response.json() as GetLobbyResponse
     return Deserializers.deserializeCreateLobbyResponse(responseBody)
   }
 
@@ -38,7 +40,7 @@ export class LobbyApi {
         "Authorization": `Bearer ${this.jwtToken}`,
       },
     })
-    const responseBody = await response.json()
+    const responseBody = await response.json() as GetLobbyResponse
     return Deserializers.deserializeCreateLobbyResponse(responseBody)
   }
 }
