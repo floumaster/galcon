@@ -151,7 +151,7 @@ class Game {
         const explosionFactory = new ExplosionFactory()
         const targetPlanet = this.planets.find(planet => planet.id === event.planetId)
         if (targetPlanet) {
-          if (this.planetOccupationCounter >= 2) {
+          if (this.planetOccupationCounter >= this.players.length) {
             this.explosions.push(explosionFactory.createExplosion({
               id: targetPlanet.id,
               coordinate: targetPlanet.coordinate,
