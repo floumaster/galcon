@@ -7,8 +7,8 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
     "@types/node": "^16.18.87",
+    "@types/node-fetch": "^2.6.11",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
     "babel-plugin-inline-react-svg": "^2.0.2",
@@ -16,6 +16,7 @@
     "inversify": "SamakaCD/InversifyJS#dynamic-value-binding-with-deps",
     "mobx": "^6.12.0",
     "mobx-react": "^9.1.0",
+    "node-fetch": "^2.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
@@ -38,9 +39,9 @@
     "clean": "rd /s /q build",
     "lint": "eslint src --ext .js --ext .ts",
     "lint-fix": "eslint src --ext .js --ext .ts --fix",
-    "test": "cross-env jest --config __jest__/jest.config.js",
-    "test-watch": "jest --watch --config __jest__/jest.config.js",
-    "test-coverage": "jest --coverage --config __jest__/jest.config.js"
+    "test": "jest --config jest.config.js",
+    "test-watch": "jest --watch --config jest.config.js",
+    "test-coverage": "jest --coverage --config jest.config.js"
   },
   "eslintConfig": {
     "extends": [
@@ -66,6 +67,7 @@
     "@babel/preset-typescript": "^7.23.3",
     "@craco/craco": "^7.1.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
+    "@types/jest": "^29.5.12",
     "@types/react-router-dom": "^5.3.3",
     "@types/reflect-metadata": "^0.1.0",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
@@ -92,6 +94,7 @@
     "postcss-preset-env": "^9.5.0",
     "reflect-metadata": "^0.2.1",
     "sass-loader": "^14.1.1",
+    "ts-jest": "^29.1.4",
     "typescript": "5.3.3",
     "typescript-plugin-css-modules": "^5.1.0",
     "webpack": "^5.90.3",

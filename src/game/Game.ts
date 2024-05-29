@@ -6,7 +6,7 @@ import { SpaceBrigade, SpaceBrigadeProps } from "./SpaceBrigade";
 import { Player } from "./Player";
 import { PlayerFactory } from "./PlayerFactory";
 import { GameApi } from "./api/GameApi";
-import { LobbyFactory, LobbyApi, Lobby } from "lobby";
+import { LobbyFactory, LobbyApi, Lobby } from "./../lobby";
 import { GameEventDistribution } from "./api/GameEventDistribution";
 import { GameSettings } from "./GameSettings";
 import { PLAYER_COLOR_PRIORITY } from "./PlayerColorPriority";
@@ -52,8 +52,10 @@ class Game {
       throw new Error('User already exists')
     }
     this.currentPlayerName = username
-    localStorage.setItem(LS_JWT_KEY, this._userJWT);
-    localStorage.setItem(LS_NAME_KEY, this.currentPlayerName);
+    if (typeof global === 'undefined') {
+      localStorage.setItem(LS_JWT_KEY, this._userJWT);
+      localStorage.setItem(LS_NAME_KEY, this.currentPlayerName);
+    }
     this.onAuthorized()
   }
 
@@ -78,8 +80,6 @@ class Game {
 
   public onGameStart() {
     this._state = 'inProgress'
-    // localStorage.removeItem(LS_JWT_KEY);
-    // localStorage.removeItem(LS_NAME_KEY);
     if (this.gameEventDistribution && this.currentPlayerName === this.players[0].name) {
       this.gameEventDistribution.socket.emit('RoomStateChangeEvent', { state: 'start' });
     }
@@ -210,12 +210,14 @@ class Game {
 
   public constructor() {
     this._gameApi = new GameApi()
-    const userJwt = localStorage.getItem(LS_JWT_KEY)
-    const username = localStorage.getItem(LS_NAME_KEY)
-    if (userJwt && username) {
-      this._userJWT = userJwt
-      this.currentPlayerName = username
-      this.onAuthorized()
+    if (typeof global === 'undefined') {
+      const userJwt = localStorage.getItem(LS_JWT_KEY)
+      const username = localStorage.getItem(LS_NAME_KEY)
+      if (userJwt && username) {
+        this._userJWT = userJwt
+        this.currentPlayerName = username
+        this.onAuthorized()
+      }
     }
     makeAutoObservable(this, undefined, { autoBind: true })
   }

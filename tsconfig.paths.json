@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "presentation/*": ["./presentation/*"],
+      "const/*": ["./const/*"],
+      "utils/*": ["./utils/*"],
+      "game/*": ["./game/*"],
+      "lobby/*": ["./lobby/*"]
+    }
+  }
+}
