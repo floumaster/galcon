@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const PrimaryButton = styled.button`
+export const PrimaryButton = styled.button<{ $isDisabled?: boolean }>`
 display: inline-block;
 outline: 0;
 cursor: pointer;
@@ -21,4 +21,5 @@ box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     box-shadow: 0 6px 20px rgb(0 118 255 / 23%);
 }
 
+opacity: ${props => props.$isDisabled ? 0.5 : 1};
 `
